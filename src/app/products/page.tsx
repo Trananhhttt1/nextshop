@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 import { useQuery } from "@tanstack/react-query";
 import { LayoutGrid, List, ChevronLeft, ChevronRight } from "lucide-react";
@@ -29,18 +30,17 @@ import StarRating from "../component/startRating";
 import { Product } from "../../../shared/schema";
 
 export default function Products() {
+  const searchParams = useSearchParams();
   const router = useRouter();
+
+  const searchQuery = searchParams.get("search") || "";
+  const categoryParam = searchParams.get("category") || "";
 
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [priceRange, setPriceRange] = useState<string | null>(null);
   const [selectedRatings, setSelectedRatings] = useState<number[]>([]);
   const [sortBy, setSortBy] = useState("featured");
-
-  // Parse query params from URL
-  // const searchParams = new URLSearchParams(location.split("?")[1] || "");
-  // const searchQuery = searchParams.get("search");
-  // const categoryParam = searchParams.get("category");
 
   // Set initial category if present in URL
   useEffect(() => {
