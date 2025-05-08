@@ -27,7 +27,7 @@ import {
 } from "@/components/ui/select";
 import ProductCard from "../component/app.productsCard";
 import StarRating from "../component/startRating";
-import { Product } from "../../../shared/schema";
+import { Product } from "../api/products/types";
 
 export default function Products() {
   const searchParams = useSearchParams();
@@ -35,6 +35,10 @@ export default function Products() {
 
   const searchQuery = searchParams.get("search") || "";
   const categoryParam = searchParams.get("category") || "";
+
+  const [products, setProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -49,14 +53,23 @@ export default function Products() {
     }
   }, [categoryParam]);
 
-  // Fetch products
-  const {
-    data: products,
-    isLoading,
-    error,
-  } = useQuery<Product[]>({
-    queryKey: ["/api/products"],
-  });
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch("/api/products");
+        if (!res.ok) throw new Error("Failed to fetch");
+        const data: Product[] = await res.json();
+        setProducts(data);
+      } catch (err) {
+        console.error(err);
+        setError(true);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   // Scroll to top on mount
   useEffect(() => {

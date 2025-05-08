@@ -4,8 +4,6 @@ import "antd/dist/reset.css";
 import AppHeader from "@/app/component/app.header";
 import AppFooter from "../../src/app/component/app.footer";
 import { CartProvider } from "./context/CartContext";
-import { QueryClientProvider } from "@tanstack/react-query";
-import { queryClient } from "../lib/queryClient";
 
 export default function RootLayout({
   children,
@@ -16,11 +14,9 @@ export default function RootLayout({
     <html lang="vi">
       <body>
         <CartProvider>
-          <QueryClientProvider client={queryClient}>
-            <AppHeader />
-            {children}
-            <AppFooter />
-          </QueryClientProvider>
+          <AppHeader />
+          {children}
+          <AppFooter />
         </CartProvider>
       </body>
     </html>
