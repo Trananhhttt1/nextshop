@@ -3,8 +3,6 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-
-import { useQuery } from "@tanstack/react-query";
 import { LayoutGrid, List, ChevronLeft, ChevronRight } from "lucide-react";
 import {
   Breadcrumb,
@@ -25,8 +23,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import ProductCard from "../component/app.productsCard";
-import StarRating from "../component/startRating";
+import ProductCard from "../_component/app.productsCard";
+import StarRating from "../_component/startRating";
 import { Product } from "../api/products/types";
 
 export default function Products() {
@@ -53,6 +51,7 @@ export default function Products() {
     }
   }, [categoryParam]);
 
+  //call api
   useEffect(() => {
     const fetchProducts = async () => {
       try {

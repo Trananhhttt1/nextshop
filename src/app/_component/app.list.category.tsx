@@ -1,5 +1,5 @@
 "use client";
-import Card from "../component/card";
+import Card from "./card";
 
 const categories = [
   {

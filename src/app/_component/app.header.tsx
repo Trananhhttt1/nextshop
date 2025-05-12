@@ -3,8 +3,11 @@ import Link from "next/link";
 import { ShoppingBag, User, ShoppingCart, Menu, Search, X } from "lucide-react";
 import { Input } from "antd";
 import { useState } from "react";
+import { isActive } from "@/lib/utils";
+import { usePathname } from "next/navigation";
 
 export default function AppHeader() {
+  const pathName = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleOpenMobileMenu = () => {
@@ -27,25 +30,33 @@ export default function AppHeader() {
           <nav className="hidden md:flex space-x-8">
             <Link
               href="/"
-              className="font-medium hover:text-blue-600 transition-colors"
+              className={`font-medium hover:text-blue-600 transition-colors ${
+                isActive(pathName, "/") ? "text-blue-500" : ""
+              }`}
             >
               Home
             </Link>
             <Link
               href="/products"
-              className="font-medium hover:text-blue-600 transition-colors"
+              className={`font-medium hover:text-blue-600 transition-colors ${
+                isActive(pathName, "/products") ? "text-blue-500" : ""
+              }`}
             >
               Products
             </Link>
             <Link
               href="#"
-              className="font-medium hover:text-blue-600 transition-colors"
+              className={`font-medium hover:text-blue-600 transition-colors ${
+                isActive(pathName, "/#") ? "text-blue-500" : ""
+              }`}
             >
               Categories
             </Link>
             <Link
               href="#"
-              className="font-medium hover:text-blue-600 transition-colors"
+              className={`font-medium hover:text-blue-600 transition-colors ${
+                isActive(pathName, "/#") ? "text-blue-500" : ""
+              }`}
             >
               About
             </Link>

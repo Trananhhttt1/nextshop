@@ -1,4 +1,5 @@
 import Link from "next/link";
+
 import {
   Facebook,
   Twitter,
@@ -110,10 +111,7 @@ export default function Footer() {
                 placeholder="Your email"
                 className="bg-gray-800 text-white rounded-l-lg w-full focus:ring-blue-500 border-gray-700"
               />
-              <Button
-                className="bg-blue-600 text-white p-2 rounded-r-lg hover:bg-blue-700 transition-colors"
-                size="icon"
-              >
+              <Button className="bg-blue-600 text-white p-2 rounded-r-lg hover:bg-blue-700 transition-colors">
                 <ArrowRight className="h-4 w-4" />
               </Button>
             </div>

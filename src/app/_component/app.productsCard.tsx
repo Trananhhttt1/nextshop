@@ -2,12 +2,13 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useCart } from "../context/CartContext";
+import { useCart } from "../../context/CartContext";
 import { Heart, ShoppingCart } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
-import StarRating from "../component/startRating";
+import StarRating from "./startRating";
+import Image from "next/image";
 
 interface ProductCardProps {
   id: number;
@@ -52,10 +53,11 @@ export default function ProductCard({
   return (
     <div className="bg-white rounded-lg shadow-sm overflow-hidden group">
       <div className="relative aspect-square bg-gray-100">
-        <Link href={`/product/${id}`}>
-          <img
+        <Link href={`/products/${id}`}>
+          <Image
             src={imageUrl}
             alt={name}
+            fill
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
         </Link>
@@ -85,7 +87,7 @@ export default function ProductCard({
         )}
       </div>
       <div className="p-4">
-        <Link href={`/product/${id}`}>
+        <Link href={`/products/${id}`}>
           <h3 className="font-medium text-gray-900 mb-1 hover:text-blue-600">
             {name}
           </h3>
