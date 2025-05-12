@@ -5,10 +5,31 @@ import { Input } from "antd";
 import { useState } from "react";
 import { isActive } from "@/lib/utils";
 import { usePathname } from "next/navigation";
-
+import { useCart } from "@/context/CartContext";
+import { useRouter } from "next/navigation";
 export default function AppHeader() {
   const pathName = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const { toggleCart, getItemCount } = useCart();
+
+  const itemCount = getItemCount();
+  const router = useRouter();
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen((prev) => !prev);
+  };
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/products?search=${encodeURIComponent(searchQuery.trim())}`);
+      closeMobileMenu();
+    }
+  };
 
   const handleOpenMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -79,11 +100,14 @@ export default function AppHeader() {
               <User className="h-5 w-5" />
             </button>
 
-            <button className="text-gray-600 hover:text-blue-600 transition-colors relative">
+            <button
+              className="text-gray-600 hover:text-blue-600 transition-colors relative"
+              onClick={toggleCart}
+            >
               <ShoppingCart className="h-5 w-5" />
-              {1 > 0 && (
+              {itemCount > 0 && (
                 <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                  1
+                  {itemCount}
                 </span>
               )}
             </button>

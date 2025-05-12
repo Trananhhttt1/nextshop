@@ -27,7 +27,7 @@ import ProductCard from "../_component/app.productsCard";
 import StarRating from "../_component/startRating";
 import { Product } from "../api/products/types";
 
-export default function Products() {
+export default function ProductsPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
