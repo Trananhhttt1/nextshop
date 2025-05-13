@@ -95,9 +95,6 @@ export default function ProductDetail() {
   const toggleFavorite = () => {
     setIsFavorited(!isFavorited);
   };
-  if (id > 10) {
-    notFound();
-  }
 
   if (isLoading) {
     return (
